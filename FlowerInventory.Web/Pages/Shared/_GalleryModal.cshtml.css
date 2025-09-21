@@ -1,0 +1,28 @@
+﻿.gallery-card-inner {
+    position: relative;
+    cursor: pointer;
+    transition: transform .12s, box-shadow .12s
+}
+
+.gallery-card-inner:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 .75rem 1.25rem rgba(0, 0, 0, .08)
+}
+
+.gallery-check {
+    position: absolute;
+    right: .5rem;
+    top: .5rem;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(25, 135, 84, .9);
+    color: #fff;
+    display: none;
+    align-items: center;
+    justify-content: center
+}
+
+.gallery-card-inner.selected .gallery-check {
+    display: flex
+}

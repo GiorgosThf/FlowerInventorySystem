@@ -1,0 +1,78 @@
+﻿@model FlowerInventorySystem.FlowerInventory.Web.Model.Category
+
+@{
+  var imgUrl = string.IsNullOrWhiteSpace(Model.ImagePath)
+    ? "http://localhost:9000/images/default/default-category.jpg"
+    : $"http://localhost:9000/images/{Model.ImagePath}";
+
+  var activeBadgeClass = Model.IsActive ? "text-bg-success" : "text-bg-secondary";
+  var activeText = Model.IsActive ? "Active" : "Inactive";
+  var flowersCount = Model.Flowers.Count;
+}
+
+<div class="modal fade" id="categoryDetails-@Model.Id" tabindex="-1" aria-labelledby="categoryDetailsLabel-@Model.Id"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center gap-2">
+          <h5 class="modal-title" id="categoryDetailsLabel-@Model.Id">@Model.Name</h5>
+          <span class="badge @activeBadgeClass">@activeText</span>
+          <span class="badge text-bg-secondary"># Flowers: @flowersCount</span>
+          @if (Model.DisplayOrder > 0)
+          {
+            <span class="badge text-bg-info">Order: @Model.DisplayOrder</span>
+          }
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row g-4 align-items-start">
+          <!-- Image -->
+          <div class="col-12 col-md-5">
+            <div class="ratio ratio-4x3 bg-body-secondary rounded-3 overflow-hidden">
+              <img src="@imgUrl" alt="@Model.Name" class="w-100 h-100" style="object-fit:cover"/>
+            </div>
+          </div>
+
+          <!-- Info -->
+          <div class="col-12 col-md-7">
+            @if (!string.IsNullOrWhiteSpace(Model.Description))
+            {
+              <div class="mb-3">
+                <div class="text-muted small mb-1">Description</div>
+                <div class="p-3 border rounded-3 bg-light">@Model.Description</div>
+              </div>
+            }
+
+            <div class="mb-2">
+              <div class="text-muted small mb-1">Included flowers</div>
+              @if (flowersCount > 0)
+              {
+                <div class="d-flex flex-wrap gap-2">
+                  @foreach (var f in Model.Flowers.Take(8))
+                  {
+                    <span class="badge badge-soft">@f.Name</span>
+                  }
+                  @if (flowersCount > 8)
+                  {
+                    <span class="badge text-bg-light">+@(flowersCount - 8) more</span>
+                  }
+                </div>
+              }
+              else
+              {
+                <div class="text-muted">— No flowers in this category yet.</div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

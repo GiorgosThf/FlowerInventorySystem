@@ -1,0 +1,36 @@
+﻿@{
+    var hasError = TempData.ContainsKey("ErrorTitle") || TempData.ContainsKey("ErrorMessage");
+    var title = (string?)TempData["ErrorTitle"] ?? "Something went wrong";
+    var message = (string?)TempData["ErrorMessage"] ?? "Please try again or contact support.";
+    var errorId = (string?)TempData["ErrorId"];
+}
+<div class="modal fade" id="appErrorModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content border-danger">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title"><i class="bi bi-exclamation-triangle-fill me-2"></i>@title</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">@message</p>
+                @if (!string.IsNullOrWhiteSpace(errorId))
+                {
+                    <p class="text-muted small mb-0 mt-2">Error ID: <code>@errorId</code></p>
+                }
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (hasError)
+{
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const el = document.getElementById('appErrorModal');
+            if (el) bootstrap.Modal.getOrCreateInstance(el).show();
+        });
+    </script>
+}

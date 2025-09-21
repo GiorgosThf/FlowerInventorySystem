@@ -1,0 +1,129 @@
+﻿.hero-landing {
+    background: radial-gradient(1200px 600px at 10% 10%, rgba(124, 58, 237, .35), transparent),
+    radial-gradient(900px 500px at 90% 20%, rgba(37, 99, 235, .35), transparent),
+    linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    color: #fff;
+}
+
+.hero-blob {
+    position: absolute;
+    filter: blur(40px);
+    opacity: .6;
+    z-index: 0;
+}
+
+.hero-blob-1 {
+    width: 240px;
+    height: 240px;
+    background: #7c3aed;
+    top: -40px;
+    right: 10%;
+    border-radius: 50%;
+}
+
+.hero-blob-2 {
+    width: 280px;
+    height: 280px;
+    background: #2563eb;
+    bottom: -60px;
+    left: -40px;
+    border-radius: 50%;
+}
+
+.hero-card {
+    position: relative;
+    z-index: 1;
+}
+
+
+.glass-card {
+    background: rgba(255, 255, 255, .08);
+    border: 1px solid rgba(255, 255, 255, .18);
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+    color: #fff;
+}
+
+
+.mini-stat {
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(255, 255, 255, .16);
+    border-radius: .75rem;
+    padding: 1rem;
+}
+
+.mini-stat-label {
+    font-size: .8rem;
+    color: #cbd5e1;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    margin-bottom: .25rem;
+}
+
+.mini-stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.icon-pill {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, .14);
+    color: #fff;
+    font-size: 1.35rem;
+}
+
+.icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, .06);
+    font-size: 1.2rem;
+}
+
+.card-hover {
+    transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 .75rem 1.5rem rgba(0, 0, 0, .08) !important;
+}
+
+.section-title {
+    font-weight: 700;
+}
+
+.step {
+    background: #f8fafc;
+    border: 1px solid #eef2f7;
+}
+
+.step-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    background: #2563eb;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    margin-bottom: .75rem;
+}
+
+.cta-band {
+    background: linear-gradient(135deg, #eef2ff 0%, #f0f9ff 100%);
+    border: 1px solid #e5e7eb;
+}
+
+.btn-shadow {
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .08);
+}

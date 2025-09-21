@@ -1,0 +1,76 @@
+﻿@model FlowerInventorySystem.FlowerInventory.Web.Model.Category
+
+@{
+  var c = Model;
+  var modalId = $"categoryEdit-{c.Id}";
+  var imgUrl = string.IsNullOrWhiteSpace(c.ImagePath)
+    ? "http://localhost:9000/images/default/default-category.jpg"
+    : $"http://localhost:9000/images/{c.ImagePath}";
+}
+
+<div class="modal fade" id="@modalId" tabindex="-1" aria-labelledby="@modalId-ttl" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="@modalId-ttl" class="modal-title">Edit “@c.Name”</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <form method="post"
+            enctype="multipart/form-data"
+            asp-page="/Categories/Edit">
+        <div class="modal-body">
+          <!-- binder-friendly Input.* names -->
+          <input type="hidden" name="Input.Id" value="@c.Id"/>
+          <input type="hidden" name="Input.PublicId" value="@c.PublicId"/>
+
+          <div class="row g-3">
+            <div class="col-md-7">
+              <label class="form-label">Name</label>
+              <input name="Input.Name" value="@c.Name" class="form-control"/>
+            </div>
+            <div class="col-md-5">
+              <label class="form-label">Display order</label>
+              <input name="Input.DisplayOrder" type="number" value="@c.DisplayOrder" class="form-control"/>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Description</label>
+              <textarea name="Input.Description" rows="3" class="form-control">@(c.Description ?? "")</textarea>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label d-block">Status</label>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox"
+                       name="Input.IsActive" value="true" @(c.IsActive ? "checked" : null)/>
+                <label class="form-check-label">Active</label>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label d-block">Current image</label>
+              <div class="ratio ratio-4x3 bg-body-secondary rounded-3 overflow-hidden">
+                <img src="@imgUrl" alt="@c.Name" class="w-100 h-100" style="object-fit:cover"/>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Replace image (optional)</label>
+              <input type="file" name="Image" accept="image/*" class="form-control"/>
+              <div class="form-text">PNG/JPG, up to 5 MB.</div>
+            </div>
+
+            @* Optional gallery hook (if you wire it later) *@
+            <input type="hidden" id="SelectedKey-@c.Id" name="SelectedKey"/>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="submit"><i class="bi bi-save me-1"></i> Save</button>
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

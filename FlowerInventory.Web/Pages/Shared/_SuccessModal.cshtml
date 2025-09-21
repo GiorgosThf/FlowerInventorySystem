@@ -1,0 +1,36 @@
+﻿@{
+    var hasError = TempData.ContainsKey("ErrorTitle") || TempData.ContainsKey("ErrorMessage");
+    var hasSuccess = !hasError && (TempData.ContainsKey("SuccessTitle") || TempData.ContainsKey("SuccessMessage"));
+
+    var title = (string?)TempData["SuccessTitle"] ?? "Success";
+    var message = (string?)TempData["SuccessMessage"] ?? "Operation completed successfully!";
+}
+<div class="modal fade" id="appSuccessModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content border-success" role="alertdialog" aria-labelledby="appSuccessModalTitle">
+            <div class="modal-header bg-success text-white">
+                <h5 id="appSuccessModalTitle" class="modal-title">
+                    <i class="bi bi-check-circle-fill me-2"></i>@title
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">@message</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (hasSuccess)
+{
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const el = document.getElementById('appSuccessModal');
+            if (el) bootstrap.Modal.getOrCreateInstance(el).show();
+        });
+    </script>
+}

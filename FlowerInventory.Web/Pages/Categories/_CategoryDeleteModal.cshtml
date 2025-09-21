@@ -1,0 +1,91 @@
+﻿@model FlowerInventorySystem.FlowerInventory.Web.Model.Category
+
+@{
+  var imgUrl = string.IsNullOrWhiteSpace(Model.ImagePath)
+    ? "http://localhost:9000/images/default/default-category.jpg"
+    : $"http://localhost:9000/images/{Model.ImagePath}";
+
+  var activeBadgeClass = Model.IsActive ? "text-bg-success" : "text-bg-secondary";
+  var activeText = Model.IsActive ? "Active" : "Inactive";
+  var flowersCount = Model.Flowers.Count;
+}
+
+<div class="modal fade" id="categoryDelete-@Model.Id" tabindex="-1" aria-labelledby="categoryDeleteLabel-@Model.Id"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content border-danger">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title d-flex align-items-center gap-2" id="categoryDeleteLabel-@Model.Id">
+          <i class="bi bi-exclamation-triangle-fill"></i>
+          Delete “@Model.Name”?
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row g-4">
+          <!-- Preview -->
+          <div class="col-12 col-md-5">
+            <div class="ratio ratio-4x3 bg-body-secondary rounded-3 overflow-hidden">
+              <img src="@imgUrl" alt="@Model.Name" class="w-100 h-100" style="object-fit:cover"/>
+            </div>
+          </div>
+
+          <!-- Details -->
+          <div class="col-12 col-md-7">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+              <span class="badge @activeBadgeClass">@activeText</span>
+              @if (Model.DisplayOrder > 0)
+              {
+                <span class="badge text-bg-info">Order: @Model.DisplayOrder</span>
+              }
+              <span class="badge text-bg-secondary"># Flowers: @flowersCount</span>
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(Model.Description))
+            {
+              <div class="mt-2">
+                <div class="text-muted small mb-1">Description</div>
+                <div class="p-3 border rounded-3 bg-light">@Model.Description</div>
+              </div>
+            }
+
+            <div class="alert alert-warning d-flex align-items-start gap-2 mt-3 mb-0">
+              <i class="bi bi-info-circle-fill"></i>
+              <div>
+                This action cannot be undone.
+                @if (flowersCount > 0)
+                {
+                  <strong> This category currently contains @flowersCount flower@(flowersCount == 1 ? "" : "s"). Move or
+                    delete them first.</strong>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        @if (flowersCount > 0)
+        {
+          <button class="btn btn-danger" type="button" disabled
+                  title="Category has flowers; reassign or delete them first">
+            <i class="bi bi-trash"></i> Yes, delete
+          </button>
+        }
+        else
+        {
+          <form method="post"
+                asp-page="/Categories/Delete"
+                asp-route-id="@Model.Id"
+                class="m-0">
+            <button class="btn btn-danger" type="submit">
+              <i class="bi bi-trash"></i> Yes, delete
+            </button>
+          </form>
+        }
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

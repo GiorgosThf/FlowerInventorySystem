@@ -1,0 +1,90 @@
+﻿@model FlowerInventorySystem.FlowerInventory.Web.Model.Flower
+
+@{
+  var imgUrl = string.IsNullOrWhiteSpace(Model.ImagePath)
+    ? "http://localhost:9000/images/default/default-flower.jpg"
+    : $"http://localhost:9000/images/{Model.ImagePath}";
+  var activeBadgeClass = Model.IsActive ? "text-bg-success" : "text-bg-secondary";
+  var activeText = Model.IsActive ? "Active" : "Inactive";
+}
+
+<div class="modal fade" id="flowerDelete-@Model.Id" tabindex="-1" aria-labelledby="flowerDeleteLabel-@Model.Id"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content border-danger">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title d-flex align-items-center gap-2" id="flowerDeleteLabel-@Model.Id">
+          <i class="bi bi-exclamation-triangle-fill"></i>
+          Delete “@Model.Name”?
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row g-4">
+          <div class="col-12 col-md-5">
+            <div class="ratio ratio-4x3 bg-body-secondary rounded-3 overflow-hidden">
+              <img src="@imgUrl" alt="@Model.Name" class="w-100 h-100" style="object-fit:fill"/>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-7">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+              <span class="badge @activeBadgeClass">@activeText</span>
+              @if (!string.IsNullOrWhiteSpace(Model.Type))
+              {
+                <span class="badge text-bg-info">@Model.Type</span>
+              }
+              @if (!string.IsNullOrWhiteSpace(Model.Category?.Name))
+              {
+                <span class="badge text-bg-secondary">@Model.Category!.Name</span>
+              }
+            </div>
+
+            <div class="h4 mb-3">€ @Model.Price.ToString("0.00")</div>
+
+            <div class="row g-2 small">
+              <div class="col-6">
+                <div class="border rounded-3 p-2">
+                  <div class="text-muted">SKU</div>
+                  <div>@(string.IsNullOrWhiteSpace(Model.Sku) ? "—" : Model.Sku)</div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="border rounded-3 p-2">
+                  <div class="text-muted">Stock</div>
+                  <div>@Model.StockQuantity</div>
+                </div>
+              </div>
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(Model.Description))
+            {
+              <div class="mt-3">
+                <div class="text-muted small mb-1">Description</div>
+                <div class="p-3 border rounded-3 bg-light">@Model.Description</div>
+              </div>
+            }
+
+            <div class="alert alert-warning d-flex align-items-start gap-2 mt-3 mb-0">
+              <i class="bi bi-info-circle-fill"></i>
+              <div>This action cannot be undone. The flower record will be permanently removed.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <form method="post"
+              asp-page="/Flowers/Delete"
+              asp-route-id="@Model.Id"
+              class="m-0">
+          <button class="btn btn-danger" type="submit">
+            <i class="bi bi-trash"></i> Yes, delete
+          </button>
+        </form>
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

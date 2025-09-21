@@ -1,0 +1,68 @@
+﻿@model FlowerInventorySystem.Pages.Media.GalleryModal
+
+<div class="modal fade" id="@Model.ModalId" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">@Model.Title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="d-flex gap-2 align-items-center mb-3">
+          <input id="galleryFlowers-search" class="form-control" placeholder="Search by filename..."
+                 oninput="filterGallery(@Model.ModalId)"/>
+          <div
+            class="text-muted small">
+            @(Model.Items?.Count ?? 0) image@((Model.Items?.Count ?? 0) == 1 ? "" : "s")</div>
+        </div>
+
+        <div id="galleryFlowers-grid" class="row g-3">
+          @if (Model.Items != null)
+          {
+            foreach (var o in Model.Items)
+            {
+              <div class="col-6 col-md-4 col-lg-3 gallery-card" data-key="@o.Key" data-url="@o.Url">
+                <div class="card h-100 shadow-sm gallery-card-inner"
+                     onclick="selectFromGallery(@Model.ModalId,'@o.Key','@o.Url')">
+                  <div class="ratio ratio-1x1 bg-body-secondary">
+                    <img src="@o.Url" alt="@o.Key" class="w-100 h-100" style="object-fit:cover" loading="lazy"/>
+                  </div>
+                  <div class="card-body p-2 small text-truncate" title="@o.Key">@o.Key</div>
+                  <div class="gallery-check"><i class="bi bi-check2"></i></div>
+                </div>
+              </div>
+            }
+          }
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <partial name="_ValidationScriptsPartial"/>
+  <script>
+    function filterGallery(modalId) {
+      const q = (document.getElementById(modalId + '-search')?.value || '').trim().toLowerCase();
+      const grid = document.getElementById(modalId + '-grid');
+      if (!grid) return;
+      grid.querySelectorAll('.gallery-card').forEach(card => {
+        const match = (card.dataset.key || '').toLowerCase().includes(q);
+        card.classList.toggle('d-none', !match);
+      });
+    }
+
+    function selectFromGallery(modalId, key, url) {
+      const input = document.getElementById('SelectedKey');
+      if (input) input.value = key;
+
+      const el = document.getElementById(modalId);
+      if (el && window.bootstrap) window.bootstrap.Modal.getOrCreateInstance(el).hide();
+    }
+  </script>
+}

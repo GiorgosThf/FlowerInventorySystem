@@ -1,0 +1,240 @@
+﻿@page
+@using FlowerInventorySystem.FlowerInventory.Web.Model
+@model ManageModel
+@{
+  ViewData["Title"] = "Media Library";
+  string Active(MediaFolder f)
+  {
+    return Model.Folder == f ? "active" : "";
+  }
+}
+
+<section class="media-hero rounded-4 p-4 p-md-5 mb-4 position-relative overflow-hidden">
+  <div class="row align-items-center g-4">
+    <div class="col-lg-7">
+      <h1 class="display-6 fw-bold text-white mb-2">Media Library</h1>
+      <p class="lead text-white-50 mb-0">Preview, upload, and delete images in your MinIO <strong>images</strong>
+        bucket.</p>
+    </div>
+    <div class="col-lg-5">
+      <div class="glass-card p-3 p-md-4">
+        <div class="small text-white-50 text-uppercase">Folder</div>
+        <div class="h4 text-white mb-2">@Model.Folder</div>
+        <div class="text-white-50 small">Switch folders and manage assets below.</div>
+      </div>
+    </div>
+  </div>
+  <div class="media-blob-1"></div>
+  <div class="media-blob-2"></div>
+</section>
+
+<!-- Toolbar: folder tabs + search -->
+<div class="card shadow-sm mb-3">
+  <div class="card-body">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link @Active(MediaFolder.Flowers)"
+             asp-page="./Manage" asp-route-Folder="Flowers" asp-route-Q="@Model.Q">
+            <i class="bi bi-flower1 me-1"></i> Flowers
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link @Active(MediaFolder.Categories)"
+             asp-page="./Manage" asp-route-Folder="Categories" asp-route-Q="@Model.Q">
+            <i class="bi bi-collection me-1"></i> Categories
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link @Active(MediaFolder.Default)"
+             asp-page="./Manage" asp-route-Folder="Default" asp-route-Q="@Model.Q">
+            <i class="bi bi-images me-1"></i> Default
+          </a>
+        </li>
+      </ul>
+
+      <form method="get" class="d-flex align-items-center gap-2" onsubmit="return true;">
+        <input type="hidden" name="Folder" value="@Model.Folder"/>
+        <input id="q" name="Q" value="@Model.Q" class="form-control" placeholder="Search images…"
+               oninput="filterGrid()"/>
+        <button class="btn btn-outline-primary"><i class="bi bi-search"></i></button>
+        @if (!string.IsNullOrEmpty(Model.Q))
+        {
+          <a class="btn btn-outline-secondary" asp-page="./Manage" asp-route-Folder="@Model.Folder">Clear</a>
+        }
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Upload -->
+<div class="card shadow-sm card-hover mb-3">
+  <div class="card-body">
+    <form method="post" enctype="multipart/form-data" asp-page-handler="Upload"
+          class="d-flex flex-wrap align-items-end gap-2">
+      <div class="flex-grow-1">
+        <label class="form-label mb-1">Upload images to <strong>@Model.Folder</strong></label>
+        <input type="file" name="Files" accept="image/*" class="form-control" multiple/>
+        <input type="hidden" name="Folder" value="@Model.Folder"/>
+        @if (!string.IsNullOrEmpty(Model.Q))
+        {
+          <input type="hidden" name="Q" value="@Model.Q"/>
+        }
+      </div>
+      <button class="btn btn-success"><i class="bi bi-cloud-upload"></i> Upload</button>
+    </form>
+  </div>
+</div>
+
+<!-- Grid -->
+@if (Model.Items.Count == 0)
+{
+  <div class="text-center text-muted py-5">
+    <div class="display-6 mb-2">🌼</div>
+    <p class="mb-0">No images in this folder yet. Upload some to get started.</p>
+  </div>
+}
+else
+{
+  <div id="grid" class="row g-3">
+    @foreach (var o in Model.Items)
+    {
+      <div class="col-6 col-md-4 col-lg-3 grid-item" data-key="@o.Key" data-url="@o.Url">
+        <div class="card h-100 shadow-sm card-hover overflow-hidden">
+          <button type="button" class="p-0 border-0 bg-transparent text-start" data-bs-toggle="modal"
+                  data-bs-target="#previewModal" data-url="@o.Url" data-key="@o.Key">
+            <div class="ratio ratio-1x1 bg-body-secondary">
+              <img src="@o.Url" alt="@o.Key" class="w-100 h-100" style="object-fit:cover" loading="lazy"/>
+            </div>
+          </button>
+          <div class="card-body p-2">
+            <div class="small text-truncate" title="@o.Key">@o.Key</div>
+            <div class="text-muted small">@((o.Size / 1024.0).ToString("0.#")) KB
+              • @(o.LastModifiedUtc?.ToString("yyyy-MM-dd HH:mm") ?? "—")</div>
+          </div>
+          <div class="card-footer bg-white d-flex justify-content-between">
+            <a class="btn btn-sm btn-outline-secondary" href="@o.Url" target="_blank" title="Open in new tab">
+              <i class="bi bi-box-arrow-up-right"></i>
+            </a>
+            <form method="post" asp-page-handler="Delete" onsubmit="return confirm('Delete this image?');" class="m-0">
+              <input type="hidden" name="key" value="@o.Key"/>
+              <input type="hidden" name="Folder" value="@Model.Folder"/>
+              @if (!string.IsNullOrEmpty(Model.Q))
+              {
+                <input type="hidden" name="Q" value="@Model.Q"/>
+              }
+              <button class="btn btn-sm btn-outline-danger" title="Delete"><i class="bi bi-trash"></i></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+}
+
+<!-- Preview Modal -->
+<div class="modal fade" id="previewModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="small text-muted text-truncate" id="previewKey"></div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="ratio ratio-16x9 bg-body-secondary">
+          <img id="previewImg" src="" alt="preview" class="w-100 h-100" style="object-fit:contain"/>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a id="previewOpen" href="#" class="btn btn-outline-secondary" target="_blank"><i
+            class="bi bi-box-arrow-up-right"></i> Open</a>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .media-hero {
+    background: radial-gradient(1200px 600px at 10% 10%, rgba(124, 58, 237, .35), transparent),
+    radial-gradient(900px 500px at 90% 20%, rgba(37, 99, 235, .35), transparent),
+    linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    color: #fff;
+  }
+
+  .media-blob-1 {
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    background: #7c3aed;
+    top: -40px;
+    right: 6%;
+    border-radius: 50%;
+    filter: blur(42px);
+    opacity: .6;
+  }
+
+  .media-blob-2 {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    background: #2563eb;
+    bottom: -80px;
+    left: -40px;
+    border-radius: 50%;
+    filter: blur(42px);
+    opacity: .6;
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, .08);
+    border: 1px solid rgba(255, 255, 255, .18);
+    border-radius: 1rem;
+    color: #fff;
+  }
+
+  .card-hover {
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 .75rem 1.25rem rgba(0, 0, 0, .08) !important;
+  }
+</style>
+
+@section Scripts {
+  <script>
+    // Apply filter (instant) and keep ?Q= in the URL
+    function filterGrid() {
+      const q = (document.getElementById('q')?.value || '').trim().toLowerCase();
+      document.querySelectorAll('#grid .grid-item').forEach(item => {
+        const key = (item.dataset.key || '').toLowerCase();
+        item.classList.toggle('d-none', !!q && !key.includes(q));
+      });
+      const url = new URL(window.location.href);
+      if (q) url.searchParams.set('Q', q); else url.searchParams.delete('Q');
+      window.history.replaceState({}, '', url);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // hydrate initial filter
+      filterGrid();
+
+      // Preview modal
+      const previewModal = document.getElementById('previewModal');
+      previewModal?.addEventListener('show.bs.modal', function (ev) {
+        const btn = ev.relatedTarget;
+        if (!btn) return;
+        const url = btn.getAttribute('data-url') || '';
+        const key = btn.getAttribute('data-key') || '';
+        const img = document.getElementById('previewImg');
+        const cap = document.getElementById('previewKey');
+        const open = document.getElementById('previewOpen');
+        if (img) img.src = url;
+        if (cap) cap.textContent = key;
+        if (open) open.href = url;
+      });
+    });
+  </script>
+}
