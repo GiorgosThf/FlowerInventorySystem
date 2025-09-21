@@ -1,6 +1,6 @@
-﻿using FlowerInventorySystem.FlowerInventory.Web.Model;
-using FlowerInventorySystem.FlowerInventory.Web.Repository;
-using FlowerInventorySystem.FlowerInventory.Web.Service;
+﻿using FlowerInventory.Web.Model;
+using FlowerInventory.Web.Repository;
+using FlowerInventory.Web.Service;
 using JetBrains.Annotations;
 using Moq;
 

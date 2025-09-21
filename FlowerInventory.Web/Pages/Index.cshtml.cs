@@ -1,9 +1,8 @@
 using FlowerInventory.Web.Configuration;
-using FlowerInventorySystem.FlowerInventory.Web.Configuration;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
-namespace FlowerInventorySystem.Pages;
+namespace FlowerInventory.Web.Pages;
 
 public class IndexModel(AppDbContext db) : PageModel
 {

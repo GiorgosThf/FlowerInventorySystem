@@ -1,4 +1,4 @@
-﻿namespace FlowerInventorySystem.FlowerInventory.Web.Model;
+﻿namespace FlowerInventory.Web.Model;
 
 public class Category : BaseModel
 {

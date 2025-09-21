@@ -1,4 +1,4 @@
-﻿namespace FlowerInventorySystem.FlowerInventory.Web.Dto;
+﻿namespace FlowerInventory.Web.Dto;
 
 public class StorageObject(
     string key,

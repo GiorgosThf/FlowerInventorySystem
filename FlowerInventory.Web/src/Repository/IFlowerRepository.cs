@@ -1,6 +1,6 @@
-﻿using FlowerInventorySystem.FlowerInventory.Web.Model;
+﻿using FlowerInventory.Web.Model;
 
-namespace FlowerInventorySystem.FlowerInventory.Web.Repository;
+namespace FlowerInventory.Web.Repository;
 
 public interface IFlowerRepository : IBaseRepository<Flower>
 {

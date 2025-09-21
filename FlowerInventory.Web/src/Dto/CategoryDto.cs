@@ -1,4 +1,4 @@
-﻿namespace FlowerInventorySystem.FlowerInventory.Web.Dto;
+﻿namespace FlowerInventory.Web.Dto;
 
 public class CategoryDto(Guid? publicId, string? name, string? description)
 {

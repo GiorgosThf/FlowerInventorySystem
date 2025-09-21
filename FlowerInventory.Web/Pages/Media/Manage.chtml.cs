@@ -1,10 +1,10 @@
-﻿using FlowerInventorySystem.FlowerInventory.Web.Dto;
-using FlowerInventorySystem.FlowerInventory.Web.Model;
-using FlowerInventorySystem.FlowerInventory.Web.Service;
+﻿using FlowerInventory.Web.Dto;
+using FlowerInventory.Web.Model;
+using FlowerInventory.Web.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FlowerInventorySystem.Pages.Media;
+namespace FlowerInventory.Web.Pages.Media;
 
 public class ManageModel(IFileStorage storage) : PageModel
 {

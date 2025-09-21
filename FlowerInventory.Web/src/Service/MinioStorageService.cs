@@ -1,12 +1,12 @@
-﻿using FlowerInventorySystem.FlowerInventory.Web.Configuration;
-using FlowerInventorySystem.FlowerInventory.Web.Dto;
-using FlowerInventorySystem.FlowerInventory.Web.Model;
+﻿using FlowerInventory.Web.Configuration;
+using FlowerInventory.Web.Dto;
+using FlowerInventory.Web.Model;
 using Microsoft.Extensions.Options;
 using Minio;
 using Minio.ApiEndpoints;
 using Minio.DataModel.Args;
 
-namespace FlowerInventorySystem.FlowerInventory.Web.Service;
+namespace FlowerInventory.Web.Service;
 
 /* The MiniO Service to connect to the minio instance and perform actions */
 public class MinioStorageService(IMinioClient client, IOptions<MinioOptions> opt) : IFileStorage

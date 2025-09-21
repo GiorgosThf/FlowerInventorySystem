@@ -1,9 +1,9 @@
 ﻿using System.Linq.Expressions;
-using FlowerInventorySystem.FlowerInventory.Web.Configuration;
-using FlowerInventorySystem.FlowerInventory.Web.Model;
-using FlowerInventorySystem.FlowerInventory.Web.Repository;
+using FlowerInventory.Web.Configuration;
+using FlowerInventory.Web.Model;
+using FlowerInventory.Web.Repository;
 
-namespace FlowerInventorySystem.FlowerInventory.Web.Service;
+namespace FlowerInventory.Web.Service;
 /* The Base Service with basic CRUD operations*/
 public class BaseService<T>(IBaseRepository<T> repository)
     : BaseComponent<IBaseRepository<T>>, IBaseService<T> where T : BaseModel

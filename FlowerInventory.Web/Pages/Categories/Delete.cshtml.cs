@@ -1,9 +1,9 @@
-﻿using FlowerInventorySystem.FlowerInventory.Web.Service;
-using FlowerInventorySystem.Pages.Utils;
+﻿using FlowerInventory.Web.Pages.Utils;
+using FlowerInventory.Web.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FlowerInventorySystem.Pages.Categories;
+namespace FlowerInventory.Web.Pages.Categories;
 
 public class Delete(ICategoryService categories) : PageModel
 {

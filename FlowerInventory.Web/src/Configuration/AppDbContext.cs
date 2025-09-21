@@ -1,4 +1,4 @@
-﻿using FlowerInventorySystem.FlowerInventory.Web.Model;
+﻿using FlowerInventory.Web.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace FlowerInventory.Web.Configuration;

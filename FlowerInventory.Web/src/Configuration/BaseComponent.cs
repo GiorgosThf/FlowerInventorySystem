@@ -1,4 +1,4 @@
-﻿namespace FlowerInventorySystem.FlowerInventory.Web.Configuration;
+﻿namespace FlowerInventory.Web.Configuration;
 
 /* Abstract class for a global logger */
 public abstract class BaseComponent<T>

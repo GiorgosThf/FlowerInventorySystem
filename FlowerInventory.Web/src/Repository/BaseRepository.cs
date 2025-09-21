@@ -1,10 +1,9 @@
 ﻿using System.Linq.Expressions;
 using FlowerInventory.Web.Configuration;
-using FlowerInventorySystem.FlowerInventory.Web.Configuration;
-using FlowerInventorySystem.FlowerInventory.Web.Model;
+using FlowerInventory.Web.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace FlowerInventorySystem.FlowerInventory.Web.Repository;
+namespace FlowerInventory.Web.Repository;
 
 public class BaseRepository<T>(AppDbContext db)
     : BaseComponent<BaseRepository<T>>, IBaseRepository<T> where T : BaseModel

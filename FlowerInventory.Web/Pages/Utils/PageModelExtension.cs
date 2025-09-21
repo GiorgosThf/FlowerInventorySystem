@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FlowerInventorySystem.Pages.Utils;
+namespace FlowerInventory.Web.Pages.Utils;
 
 public static class PageModelExtensions
 {

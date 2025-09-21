@@ -1,4 +1,4 @@
-﻿namespace FlowerInventorySystem.FlowerInventory.Web.Configuration;
+﻿namespace FlowerInventory.Web.Configuration;
 
 public class MinioOptions
 {

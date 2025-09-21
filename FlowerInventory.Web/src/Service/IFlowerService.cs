@@ -1,6 +1,6 @@
-﻿using FlowerInventorySystem.FlowerInventory.Web.Model;
+﻿using FlowerInventory.Web.Model;
 
-namespace FlowerInventorySystem.FlowerInventory.Web.Service;
+namespace FlowerInventory.Web.Service;
 
 /* The interface with methods related to flower service */
 public interface IFlowerService : IBaseService<Flower>

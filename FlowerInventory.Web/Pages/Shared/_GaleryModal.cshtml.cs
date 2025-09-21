@@ -1,6 +1,6 @@
-﻿using FlowerInventorySystem.FlowerInventory.Web.Dto;
+﻿using FlowerInventory.Web.Dto;
 
-namespace FlowerInventorySystem.Pages.Media;
+namespace FlowerInventory.Web.Pages.Shared;
 
 public class GalleryModal
 {

@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
-using FlowerInventorySystem.FlowerInventory.Web.Model;
+using FlowerInventory.Web.Model;
 
-namespace FlowerInventorySystem.FlowerInventory.Web.Service;
+namespace FlowerInventory.Web.Service;
 
 /* The Interface of Base Service with basic CRUD operations*/
 public interface IBaseService<T> where T : BaseModel

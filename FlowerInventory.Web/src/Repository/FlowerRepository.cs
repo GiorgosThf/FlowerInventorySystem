@@ -1,9 +1,8 @@
 ﻿using FlowerInventory.Web.Configuration;
-using FlowerInventorySystem.FlowerInventory.Web.Configuration;
-using FlowerInventorySystem.FlowerInventory.Web.Model;
+using FlowerInventory.Web.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace FlowerInventorySystem.FlowerInventory.Web.Repository;
+namespace FlowerInventory.Web.Repository;
 
 public class FlowerRepository(AppDbContext db)
     : BaseRepository<Flower>(db), IFlowerRepository

@@ -1,7 +1,7 @@
-﻿using FlowerInventorySystem.FlowerInventory.Web.Dto;
-using FlowerInventorySystem.FlowerInventory.Web.Model;
+﻿using FlowerInventory.Web.Dto;
+using FlowerInventory.Web.Model;
 
-namespace FlowerInventorySystem.FlowerInventory.Web.Service;
+namespace FlowerInventory.Web.Service;
 
 /* The Interface with methods related to minio */
 public interface IFileStorage

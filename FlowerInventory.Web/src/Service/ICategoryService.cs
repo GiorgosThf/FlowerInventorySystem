@@ -1,6 +1,6 @@
-﻿using FlowerInventorySystem.FlowerInventory.Web.Model;
+﻿using FlowerInventory.Web.Model;
 
-namespace FlowerInventorySystem.FlowerInventory.Web.Service;
+namespace FlowerInventory.Web.Service;
 
 public interface ICategoryService : IBaseService<Category>
 {

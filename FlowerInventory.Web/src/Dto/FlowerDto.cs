@@ -1,4 +1,4 @@
-﻿namespace FlowerInventorySystem.FlowerInventory.Web.Dto;
+﻿namespace FlowerInventory.Web.Dto;
 
 public class FlowerDto(Guid publicId, string name, string type, decimal price, Guid categoryId, string? imagePath)
 {

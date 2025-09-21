@@ -1,7 +1,7 @@
-﻿using FlowerInventorySystem.FlowerInventory.Web.Model;
-using FlowerInventorySystem.FlowerInventory.Web.Repository;
+﻿using FlowerInventory.Web.Model;
+using FlowerInventory.Web.Repository;
 
-namespace FlowerInventorySystem.FlowerInventory.Web.Service;
+namespace FlowerInventory.Web.Service;
 
 /* The Category Service extending BaseService with basic CRUD operations and implementing other operations
  from CategoryService Interface*/

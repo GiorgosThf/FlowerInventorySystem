@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-namespace FlowerInventorySystem.FlowerInventory.Web.Configuration;
+namespace FlowerInventory.Web.Configuration;
 
 /* Exception filter for exception handling */
 public class GlobalExceptionFilter(

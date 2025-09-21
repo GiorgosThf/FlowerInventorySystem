@@ -1,8 +1,7 @@
-﻿using FlowerInventory.Web.Configuration;
-using FlowerInventorySystem.FlowerInventory.Web.Model;
+﻿using FlowerInventory.Web.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace FlowerInventorySystem.FlowerInventory.Web.Configuration;
+namespace FlowerInventory.Web.Configuration;
 
 public static class DbInitializer
 {

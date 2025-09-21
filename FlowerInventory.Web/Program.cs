@@ -1,7 +1,6 @@
 using FlowerInventory.Web.Configuration;
-using FlowerInventorySystem.FlowerInventory.Web.Configuration;
-using FlowerInventorySystem.FlowerInventory.Web.Repository;
-using FlowerInventorySystem.FlowerInventory.Web.Service;
+using FlowerInventory.Web.Repository;
+using FlowerInventory.Web.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Minio;

@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FlowerInventorySystem.Pages;
+namespace FlowerInventory.Web.Pages;
 
 public class ErrorModel(ILogger<ErrorModel> logger) : PageModel
 {

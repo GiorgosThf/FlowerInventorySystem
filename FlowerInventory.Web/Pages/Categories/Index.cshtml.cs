@@ -1,9 +1,9 @@
-﻿using FlowerInventorySystem.FlowerInventory.Web.Model;
-using FlowerInventorySystem.FlowerInventory.Web.Service;
+﻿using FlowerInventory.Web.Model;
+using FlowerInventory.Web.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FlowerInventorySystem.Pages.Categories;
+namespace FlowerInventory.Web.Pages.Categories;
 
 public class IndexModel(ICategoryService categories) : PageModel
 {
